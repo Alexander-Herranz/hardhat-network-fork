@@ -6,7 +6,7 @@
 
 ## Configuration
 Rename the ```.env_sample``` file to ```.env```
-In the ```NODE_RPC_URL```env param, introduce your RPC Node endpoint URL.
+In the ```NODE_RPC_URL```env param, and introduce your RPC Node endpoint URL.
 
 ## Run the local blockchain forking mainnet
 ```npx hardhat node```
