@@ -20,6 +20,9 @@ Add Hardhat network, with the following params:
 Install a package to run the index.html (we will use https://www.npmjs.com/package/nws)
 ``` npm i -g nws```
 
-Go to /metamask-html and run:
-``` nws - p 8080```
+Go to /metamask-html and run the index.html:
+
+``` cd ./metamask-html ```
+
+``` nws - p 8080 ```
 
