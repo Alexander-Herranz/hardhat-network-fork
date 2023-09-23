@@ -2,14 +2,14 @@
 
 
 ## Project installation
-´´´npm install´´´
+```npm install```
 
 ## Run the local blockchain forking mainnet
-´´´npx hardhat node´´´
+```npx hardhat node```
 
 ## Deploy contract
 
-´´´npx hardhat run ./scripts/deploy.ts´´´
+```npx hardhat run ./scripts/deploy.ts```
 
 ## Run the web project (you need Metamask in the browser)
 Add Hardhat network, with the following params:
@@ -18,8 +18,8 @@ Add Hardhat network, with the following params:
  - Chain ID: 56
 
 Install a package to run the index.html (we will use https://www.npmjs.com/package/nws)
-´´´ npm i -g nws´´´
+``` npm i -g nws```
 
 Go to /metamask-html and run:
-´´´ nws - p 8080´´´
+``` nws - p 8080```
 
