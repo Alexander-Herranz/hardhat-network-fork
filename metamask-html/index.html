@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>NAVE METAMASK HARDHAT</title>
+
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+        type="application/javascript"></script>
+
+</head>
+
+
+<body>
+
+  <h1>NAVE Metamask Dapp</h1>
+  <p>Smart Contract Connection.</p>
+
+  <div>
+    <button id="retrieve_num_btn">RETRIEVE Number</button>
+    <br><br>
+    <button id="store_num_btn">STORE Number</button>
+
+  </div>
+
+
+  <script type="module">
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    // MetaMask requires requesting permission to connect users accounts
+    await provider.send("eth_requestAccounts", []);
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner();
+
+    let abi_storage = await fetch("./abi.json");
+    abi_storage = await abi_storage.json();
+    console.log(abi_storage);
+    const storageAddr = "0xd9abC93F81394Bd161a1b24B03518e0a570bDEAd";
+    const storageContract = new ethers.Contract(storageAddr, abi_storage, signer);
+
+    document.getElementById("retrieve_num_btn").onclick = async ()=> { retrieveNum() };
+    document.getElementById("store_num_btn").onclick = async ()=> { storeNum() };
+
+    async function retrieveNum(){
+      let _number = await storageContract.retrieveNum();
+      console.log(_number);
+    };
+
+
+    async function storeNum(){
+
+      const nonce = await signer.getTransactionCount();
+      console.log("nonce: " + nonce);
+
+      let gasPrice = await signer.getGasPrice();
+      console.log("gasPrice: " + gasPrice);
+
+      let gasLimit = await registryContract
+        .estimateGas
+        .storeNum(
+          69,
+          {
+            nonce: nonce,
+            gasPrice: gasPrice,
+          }
+        );
+
+      console.log("gasLimit: " + gasLimit);
+
+      let tx = await registryContract
+        .connect(signer)
+        .storeNum(
+          69,
+          {
+            nonce: nonce,
+            gasPrice: gasPrice,
+            gasLimit: gasLimit
+          }
+        );
+
+      let receipt = await tx.wait();
+
+      console.log("------- Transaction receipt -------");
+      console.log(receipt);
+
+    }
+
+
+
+
+</script>
+
+</body>
+
+</html>
