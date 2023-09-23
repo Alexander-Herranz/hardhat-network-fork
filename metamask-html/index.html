@@ -45,20 +45,21 @@
     document.getElementById("store_num_btn").onclick = async ()=> { storeNum() };
 
     async function retrieveNum(){
+      console.log("retrieveNum()");
       let _number = await storageContract.retrieveNum();
       console.log(_number);
     };
 
 
     async function storeNum(){
-
+      console.log("storeNum()");
       const nonce = await signer.getTransactionCount();
       console.log("nonce: " + nonce);
 
       let gasPrice = await signer.getGasPrice();
       console.log("gasPrice: " + gasPrice);
 
-      let gasLimit = await registryContract
+      let gasLimit = await storageContract
         .estimateGas
         .storeNum(
           69,
@@ -70,7 +71,7 @@
 
       console.log("gasLimit: " + gasLimit);
 
-      let tx = await registryContract
+      let tx = await storageContract
         .connect(signer)
         .storeNum(
           69,
